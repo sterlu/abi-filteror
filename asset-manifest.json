@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/abi-filteror/static/css/main.4e3f46bc.chunk.css",
+    "main.js": "/abi-filteror/static/js/main.eea0662a.chunk.js",
+    "main.js.map": "/abi-filteror/static/js/main.eea0662a.chunk.js.map",
+    "runtime-main.js": "/abi-filteror/static/js/runtime-main.314142e2.js",
+    "runtime-main.js.map": "/abi-filteror/static/js/runtime-main.314142e2.js.map",
+    "static/js/2.537c7978.chunk.js": "/abi-filteror/static/js/2.537c7978.chunk.js",
+    "static/js/2.537c7978.chunk.js.map": "/abi-filteror/static/js/2.537c7978.chunk.js.map",
+    "index.html": "/abi-filteror/index.html",
+    "static/css/main.4e3f46bc.chunk.css.map": "/abi-filteror/static/css/main.4e3f46bc.chunk.css.map",
+    "static/js/2.537c7978.chunk.js.LICENSE.txt": "/abi-filteror/static/js/2.537c7978.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.314142e2.js",
+    "static/js/2.537c7978.chunk.js",
+    "static/css/main.4e3f46bc.chunk.css",
+    "static/js/main.eea0662a.chunk.js"
+  ]
+}
