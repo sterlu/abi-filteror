@@ -1,13 +1,22 @@
 import Web3EthAbi from 'web3-eth-abi';
 import {AbiDefinition, ContractAbi} from "ethereum-types";
+import {Network} from './general';
 
 const API_KEY = 'YourApiKeyToken';
 
 const NULL_ADDRESS = '0x0000000000000000000000000000000000000000'
 
-export const getAbi = async (address:string, network = 1):Promise<ContractAbi> => {
+export const EXPLORER_APIS = {
+    1: 'https://api.etherscan.io',
+    10: 'https://api-optimistic.etherscan.io',
+    42161: 'https://api.arbiscan.io',
+};
+
+export const getAbi = async (address:string, network:Network = 1):Promise<ContractAbi> => {
     console.log(address);
-    const url = `https://api.etherscan.io/api?module=contract&action=getabi&address=${address}&apikey=${API_KEY}`
+    const apiBase:any = EXPLORER_APIS[network];
+    if (!apiBase) throw new Error('Invalid network');
+    const url = `${apiBase}/api?module=contract&action=getabi&address=${address}&apikey=${API_KEY}`
     const res = await fetch(url);
     const data = await res.json();
     if (data.status !== '1') throw new Error(data.result);

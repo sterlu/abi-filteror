@@ -4,21 +4,23 @@ import {useActionWithLoading} from "../../utils/hooks";
 import {AbiDefinition, ContractAbi} from "ethereum-types";
 import AbiItem from "./AbiItem/AbiItem";
 import {getAbi} from "../../utils/abi";
-import {getEtherscanLink} from "../../utils/general";
+import {getEtherscanLink, Network} from "../../utils/general";
 
 function App() {
     const inputEl = useRef<HTMLInputElement>(null);
     const [abi, setAbi] = useState<ContractAbi>([]);
+    const [network, setNetwork] = useState<Network>(1);
     const [checks, setChecks] = useState<boolean[]>([]);
 
     const {
         action: submit, error, loading,
-    } = useActionWithLoading(async (network: number) => {
+    } = useActionWithLoading(async (network: Network) => {
         const address = inputEl.current?.value;
         if (!address || !(new RegExp(/0x[0-9A-Za-z]{40}/)).test(address)) {
             throw new Error('Invalid contract address');
         }
         const abi = await getAbi(address, network);
+        setNetwork(network);
         setAbi(abi);
         setChecks((new Array(abi.length)).map(() => false));
     })
@@ -59,7 +61,9 @@ function App() {
                     // defaultValue="0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9"
                     // defaultValue="0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413"
                 />
-                <button onClick={() => submit(1)}>Fetch Mainnet ABI</button>
+                <button onClick={() => submit(1)}>Mainnet ABI</button>
+                <button onClick={() => submit(10)}>Optimism ABI</button>
+                <button onClick={() => submit(42161)}>Arbitrum ABI</button>
                 {loading && <span className="loader">...</span>}
                 {error && <span className="error">{error}</span>}
             </div>
@@ -69,7 +73,7 @@ function App() {
                         <button onClick={selectAll}>Select All</button>
                         <button onClick={deselectAll}>Deselect All</button>
                         <button onClick={selectAllFunctions}>Select All Functions</button>
-                        <a href={getEtherscanLink(inputEl.current?.value || '')} target="_blank">Etherscan</a>
+                        <a href={getEtherscanLink(inputEl.current?.value || '', 'address', network)} target="_blank">Etherscan</a>
                         |
                         <button onClick={() => copyAbi()}>Copy Filtered ABI</button>
                     </div>
